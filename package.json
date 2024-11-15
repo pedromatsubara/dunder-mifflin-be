@@ -1,0 +1,12 @@
+{
+  "name": "fullstack-assessment-be",
+  "version": "1.0.0",
+  "description": "Fullstack Assessment BE",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "keywords": [],
+  "author": "Pedro Pereira",
+  "license": "ISC"
+}
