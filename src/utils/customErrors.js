@@ -1,3 +1,11 @@
+class NotFoundError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "NotFoundError";
+    this.statusCode = 404;
+  }
+}
+
 class DatabaseError extends Error {
   constructor(message) {
     super(message);
@@ -7,5 +15,6 @@ class DatabaseError extends Error {
 }
 
 module.exports = {
+  NotFoundError,
   DatabaseError,
 };

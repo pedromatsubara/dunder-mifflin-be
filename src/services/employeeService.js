@@ -1,4 +1,5 @@
 const employeeRepository = require("../repositories/employeeRepository");
+const { NotFoundError } = require("../utils/customErrors");
 
 class EmployeeService {
   async getAllEmployees() {
@@ -12,6 +13,10 @@ class EmployeeService {
   async getEmployeeById(id) {
     try {
       const employee = await employeeRepository.findById(id);
+
+      if (!employee) {
+        throw new NotFoundError(`Employee with ID ${id} not found`);
+      }
 
       return employee;
     } catch (error) {
