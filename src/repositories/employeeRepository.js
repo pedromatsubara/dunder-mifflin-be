@@ -1,10 +1,14 @@
+const Department = require("../models/Department");
 const Employee = require("../models/Employee");
 const { DatabaseError } = require("../utils/customErrors");
 
 class EmployeeRepository {
   async findAll() {
     try {
-      return await Employee.findAll();
+      return await Employee.findAll({
+        attributes: ["id", "firstName", "lastName", "hireDate"],
+        include: { model: Department, attributes: ["name"] },
+      });
     } catch (error) {
       throw new DatabaseError("Failed to fetch employees", error);
     }
@@ -12,7 +16,22 @@ class EmployeeRepository {
 
   async findById(id) {
     try {
-      return await Employee.findByPk(id);
+      return await Employee.findByPk(id, {
+        attributes: [
+          "id",
+          "firstName",
+          "lastName",
+          "active",
+          "hireDate",
+          "phone",
+          "address",
+          "departmentId",
+        ],
+        include: {
+          model: Department,
+          attributes: ["name"],
+        },
+      });
     } catch (error) {
       throw new DatabaseError("Failed to fetch employee by ID", error);
     }
