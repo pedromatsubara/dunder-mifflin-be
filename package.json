@@ -1,7 +1,7 @@
 {
   "name": "fullstack-assessment-be",
   "version": "1.0.0",
-  "description": "Fullstack Assessment BE",
+  "description": "Dunder Mifflin Employee Management API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -19,7 +19,9 @@
   "devDependencies": {
     "nodemon": "^3.1.7"
   },
-  "keywords": [],
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "author": "Pedro Pereira",
   "license": "ISC"
 }
