@@ -1,6 +1,7 @@
 const employeeRepository = require("../repositories/employeeRepository");
 const fileService = require("./fileService");
 const { NotFoundError } = require("../utils/customErrors");
+const departmentHistoryService = require("./departmentHistoryService");
 
 class EmployeeService {
   async getAllEmployees() {
@@ -54,6 +55,7 @@ class EmployeeService {
 
   async deleteEmployee(id) {
     try {
+      await departmentHistoryService.deleteHistoryByEmployeeId(id);
       await employeeRepository.delete(id);
 
       const fileName = `employee-${id}.jpg`;
