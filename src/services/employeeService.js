@@ -36,6 +36,12 @@ class EmployeeService {
         transaction
       );
 
+      await departmentHistoryService.createDepartmentChange(
+        employee.id,
+        employeeData.departmentId,
+        transaction
+      );
+
       if (employeeAvatar) {
         const fileName = `employee-${employee.id}.jpg`;
         await fileService.saveImage(employeeAvatar.buffer, fileName);
