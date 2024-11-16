@@ -43,11 +43,9 @@ class EmployeeService {
 
   async updateEmployee(id, updates) {
     try {
-      const employee = await this.getEmployeeById(id);
-
       await employeeRepository.update(id, updates);
 
-      return employee;
+      return await this.getEmployeeById(id);
     } catch (error) {
       throw error;
     }
