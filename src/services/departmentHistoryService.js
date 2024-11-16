@@ -20,7 +20,7 @@ class DepartmentHistoryService {
     }
   }
 
-  async createDepartmentChange(employeeId, departmentId) {
+  async createDepartmentChange(employeeId, departmentId, transaction) {
     try {
       const historyData = {
         employeeId,
@@ -28,15 +28,15 @@ class DepartmentHistoryService {
         changeDate: new Date().toISOString(),
       };
 
-      return await departmentHistoryRepository.create(historyData);
+      return await departmentHistoryRepository.create(historyData, transaction);
     } catch (error) {
       throw error;
     }
   }
 
-  async deleteHistoryByEmployeeId(employeeId) {
+  async deleteHistoryByEmployeeId(employeeId, transaction) {
     try {
-      return await departmentHistoryRepository.delete(employeeId);
+      return await departmentHistoryRepository.delete(employeeId, transaction);
     } catch (error) {
       throw error;
     }

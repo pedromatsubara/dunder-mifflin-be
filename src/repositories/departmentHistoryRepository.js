@@ -17,17 +17,20 @@ class DepartmentHistoryRepository {
     }
   }
 
-  async create(historyData) {
+  async create(historyData, transaction) {
     try {
-      return await DepartmentHistory.create(historyData);
+      return await DepartmentHistory.create(historyData, { transaction });
     } catch (error) {
       throw new DatabaseError("Error creating department history entry");
     }
   }
 
-  async delete(employeeId) {
+  async delete(employeeId, transaction) {
     try {
-      await DepartmentHistory.destroy({ where: { employeeId } });
+      await DepartmentHistory.destroy({
+        where: { employeeId },
+        transaction,
+      });
     } catch (error) {
       throw new DatabaseError(
         `Error deleting department history for employee ID ${employeeId}`

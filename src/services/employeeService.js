@@ -1,7 +1,8 @@
+const sequelize = require("../config/database");
 const employeeRepository = require("../repositories/employeeRepository");
+const departmentHistoryService = require("./departmentHistoryService");
 const fileService = require("./fileService");
 const { NotFoundError } = require("../utils/customErrors");
-const departmentHistoryService = require("./departmentHistoryService");
 
 class EmployeeService {
   async getAllEmployees() {
@@ -27,21 +28,31 @@ class EmployeeService {
   }
 
   async createEmployee(employeeData, employeeAvatar) {
+    const transaction = await sequelize.transaction();
+
     try {
-      const employee = await employeeRepository.create(employeeData);
+      const employee = await employeeRepository.create(
+        employeeData,
+        transaction
+      );
 
       if (employeeAvatar) {
         const fileName = `employee-${employee.id}.jpg`;
         await fileService.saveImage(employeeAvatar.buffer, fileName);
       }
 
+      await transaction.commit();
+
       return employee;
     } catch (error) {
+      await transaction.rollback();
       throw error;
     }
   }
 
   async updateEmployee(id, updates) {
+    const transaction = await sequelize.transaction();
+
     try {
       const employee = await this.getEmployeeById(id);
 
@@ -52,26 +63,33 @@ class EmployeeService {
       ) {
         await departmentHistoryService.createDepartmentChange(
           id,
-          updates.departmentId
+          updates.departmentId,
+          transaction
         );
       }
 
-      await employeeRepository.update(id, updates);
+      await employeeRepository.update(id, updates, transaction);
+      await transaction.commit();
 
       return await this.getEmployeeById(id);
     } catch (error) {
+      await transaction.rollback();
       throw error;
     }
   }
 
   async deleteEmployee(id) {
+    const transaction = await sequelize.transaction();
+
     try {
-      await departmentHistoryService.deleteHistoryByEmployeeId(id);
-      await employeeRepository.delete(id);
+      await departmentHistoryService.deleteHistoryByEmployeeId(id, transaction);
+      await employeeRepository.delete(id, transaction);
+      await transaction.commit();
 
       const fileName = `employee-${id}.jpg`;
       await fileService.deleteFile(fileName);
     } catch (error) {
+      await transaction.rollback();
       throw error;
     }
   }

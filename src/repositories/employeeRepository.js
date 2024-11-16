@@ -37,25 +37,31 @@ class EmployeeRepository {
     }
   }
 
-  async create(employeeData) {
+  async create(employeeData, transaction) {
     try {
-      return await Employee.create(employeeData);
+      return await Employee.create(employeeData, { transaction });
     } catch (error) {
       throw new DatabaseError("Failed to create employee", error);
     }
   }
 
-  async update(id, employeeData) {
+  async update(id, employeeData, transaction) {
     try {
-      await Employee.update(employeeData, { where: { id } });
+      await Employee.update(employeeData, {
+        where: { id },
+        transaction,
+      });
     } catch (error) {
       throw new DatabaseError("Failed to update employee", error);
     }
   }
 
-  async delete(id) {
+  async delete(id, transaction) {
     try {
-      await Employee.destroy({ where: { id } });
+      await Employee.destroy({
+        where: { id },
+        transaction,
+      });
     } catch (error) {
       throw new DatabaseError("Failed to delete employee", error);
     }
