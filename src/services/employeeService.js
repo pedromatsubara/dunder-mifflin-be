@@ -1,4 +1,5 @@
 const employeeRepository = require("../repositories/employeeRepository");
+const fileService = require("./fileService");
 const { NotFoundError } = require("../utils/customErrors");
 
 class EmployeeService {
@@ -24,9 +25,14 @@ class EmployeeService {
     }
   }
 
-  async createEmployee(employeeData) {
+  async createEmployee(employeeData, employeeAvatar) {
     try {
       const employee = await employeeRepository.create(employeeData);
+
+      if (employeeAvatar) {
+        const fileName = `employee-${employee.id}.jpg`;
+        await fileService.saveImage(employeeAvatar.buffer, fileName);
+      }
 
       return employee;
     } catch (error) {
@@ -49,6 +55,9 @@ class EmployeeService {
   async deleteEmployee(id) {
     try {
       await employeeRepository.delete(id);
+
+      const fileName = `employee-${id}.jpg`;
+      await fileService.deleteFile(fileName);
     } catch (error) {
       throw error;
     }

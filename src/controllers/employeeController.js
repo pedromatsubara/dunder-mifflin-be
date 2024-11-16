@@ -20,7 +20,7 @@ exports.getEmployeeById = async (req, res, next) => {
 
 exports.createEmployee = async (req, res, next) => {
   try {
-    const employee = await employeeService.createEmployee(req.body);
+    const employee = await employeeService.createEmployee(req.body, req.file);
     res.status(201).json(employee);
   } catch (error) {
     next(error);
