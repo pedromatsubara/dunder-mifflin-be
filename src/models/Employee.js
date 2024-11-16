@@ -23,7 +23,7 @@ const Employee = sequelize.define("Employee", {
       model: Department,
       key: "id",
     },
-    allowNull: true,
+    allowNull: false,
   },
 });
 
