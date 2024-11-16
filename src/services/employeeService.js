@@ -43,6 +43,19 @@ class EmployeeService {
 
   async updateEmployee(id, updates) {
     try {
+      const employee = await this.getEmployeeById(id);
+
+      // Handle department change if needed
+      if (
+        updates.departmentId &&
+        updates.departmentId !== employee.departmentId
+      ) {
+        await departmentHistoryService.createDepartmentChange(
+          id,
+          updates.departmentId
+        );
+      }
+
       await employeeRepository.update(id, updates);
 
       return await this.getEmployeeById(id);
