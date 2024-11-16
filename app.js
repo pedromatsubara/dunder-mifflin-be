@@ -5,7 +5,7 @@ const errorHandler = require("./src/middlewares/errorHandler");
 const employeeRoutes = require("./src/routes/employeeRoutes");
 const departmentRoutes = require("./src/routes/departmentRoutes");
 const departmentHistoryRoutes = require("./src/routes/departmentHistoryRoutes");
-const initializeDatabaseMocks = require("./src/config/databaseMockInitializer");
+const initializeDatabaseMocks = require("./src/config/mocks/databaseInitializer");
 
 const app = express();
 app.use(express.json());
