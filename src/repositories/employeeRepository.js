@@ -6,7 +6,7 @@ class EmployeeRepository {
   async findAll() {
     try {
       return await Employee.findAll({
-        attributes: ["id", "firstName", "lastName", "hireDate"],
+        attributes: ["id", "firstName", "lastName", "hireDate", "active"],
         include: { model: Department, attributes: ["name"] },
       });
     } catch (error) {
