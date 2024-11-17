@@ -1,9 +1,9 @@
 const fs = require("fs/promises");
 const path = require("path");
-const sequelize = require("../database");
-const Department = require("../../models/Department");
-const Employee = require("../../models/Employee");
-const DepartmentHistory = require("../../models/DepartmentHistory");
+const sequelize = require("../config/database");
+const Department = require("../models/Department");
+const Employee = require("../models/Employee");
+const DepartmentHistory = require("../models/DepartmentHistory");
 
 async function initializeDepartments() {
   const departments = [
@@ -224,10 +224,15 @@ async function initializeDepartmentHistory() {
 }
 
 const copyImages = async () => {
-  const sourceFolder = path.resolve(__dirname, "images");
-  const targetFolder = path.resolve(__dirname, "../../", "uploads");
+  const sourceFolder = path.resolve(
+    __dirname,
+    "../../../",
+    "public/mockImages"
+  );
+  const targetFolder = path.resolve(__dirname, "../../../", "public/images");
 
   try {
+    await fs.rm(targetFolder, { recursive: true, force: true });
     await fs.mkdir(targetFolder, { recursive: true });
 
     const files = await fs.readdir(sourceFolder);

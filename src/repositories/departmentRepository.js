@@ -1,5 +1,5 @@
 const { DatabaseError } = require("../utils/customErrors");
-const Department = require("../models/Department");
+const Department = require("../database/models/Department");
 
 class DepartmentRepository {
   async findAll() {

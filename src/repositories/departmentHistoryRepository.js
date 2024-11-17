@@ -1,6 +1,6 @@
 const { DatabaseError } = require("../utils/customErrors");
-const DepartmentHistory = require("../models/DepartmentHistory");
-const Department = require("../models/Department");
+const DepartmentHistory = require("../database/models/DepartmentHistory");
+const Department = require("../database/models/Department");
 
 class DepartmentHistoryRepository {
   async findAllByEmployeeId(employeeId) {

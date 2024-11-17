@@ -1,4 +1,4 @@
-const sequelize = require("../config/database");
+const sequelize = require("../database/config/database");
 const employeeRepository = require("../repositories/employeeRepository");
 const departmentHistoryService = require("./departmentHistoryService");
 const fileService = require("./fileService");

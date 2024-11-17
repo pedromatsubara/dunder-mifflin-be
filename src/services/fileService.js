@@ -4,7 +4,7 @@ const path = require("path");
 
 class FileService {
   constructor() {
-    this.uploadsDir = path.resolve(__dirname, "..", "uploads");
+    this.uploadsDir = path.resolve(__dirname, "../../", "public/images");
     if (!fs.existsSync(this.uploadsDir)) {
       fs.mkdirSync(this.uploadsDir, { recursive: true });
     }

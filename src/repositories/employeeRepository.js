@@ -1,5 +1,5 @@
-const Department = require("../models/Department");
-const Employee = require("../models/Employee");
+const Department = require("../database/models/Department");
+const Employee = require("../database/models/Employee");
 const { DatabaseError } = require("../utils/customErrors");
 
 class EmployeeRepository {
