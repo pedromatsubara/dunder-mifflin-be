@@ -1,7 +1,9 @@
 {
   "name": "fullstack-assessment-be",
   "version": "1.0.0",
-  "description": "Dunder Mifflin Employee Management API",
+  "description": "Dunder Mifflin Management API",
+  "author": "Pedro Pereira",
+  "license": "ISC",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -17,11 +19,10 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "sequelize-cli": "^6.6.2"
   },
   "engines": {
     "node": ">=20.0.0"
-  },
-  "author": "Pedro Pereira",
-  "license": "ISC"
+  }
 }
