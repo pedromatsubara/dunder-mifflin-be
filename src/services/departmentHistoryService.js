@@ -25,7 +25,6 @@ class DepartmentHistoryService {
       const historyData = {
         employeeId,
         departmentId,
-        changeDate: new Date().toISOString(),
       };
 
       return await departmentHistoryRepository.create(historyData, transaction);
