@@ -36,7 +36,7 @@ Install dependencies
   npm install
 ```
 
-Run the migrate
+Run the migrations
 
 ```bash
   npm run migrate
