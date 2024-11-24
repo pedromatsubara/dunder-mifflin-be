@@ -36,13 +36,19 @@ Install dependencies
   npm install
 ```
 
+Compile TypeScript files
+
+```bash
+  npx tsc
+```
+
 Run the migrations
 
 ```bash
   npm run migrate
 ```
 
-Generate mock data (optional but highly recommended!)
+Generate mock data
 
 ```bash
   npm run seed

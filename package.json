@@ -4,10 +4,9 @@
   "description": "Dunder Mifflin Management API",
   "author": "Pedro Pereira",
   "license": "ISC",
-  "main": "server.js",
+  "main": "src/server.ts",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "tsnd .",
     "migrate": "sequelize-cli db:migrate",
     "undo-migrate": "sequelize-cli db:migrate:undo",
     "seed": "sequelize-cli db:seed:all",
@@ -23,8 +22,12 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7",
-    "sequelize-cli": "^6.6.2"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/sequelize": "^4.28.20",
+    "sequelize-cli": "^6.6.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
   },
   "engines": {
     "node": ">=20.0.0"
