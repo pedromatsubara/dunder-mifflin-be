@@ -1,18 +1,20 @@
-import { Router } from "express";
+import express from "express";
+import path from "path";
 import departmentRouter from "./departmentRoutes";
+// import employeeRouter from "./employeeRoutes";
+import departmentHistoryRouter from "./departmentHistoryRoutes";
+import errorHandler from "../middlewares/errorHandler";
 
-// const path = require("path");
-// const errorHandler = require("./middlewares/errorHandler");
-// const employeeRoutes = require("./routes/employeeRoutes");
-// const departmentHistoryRoutes = require("./routes/departmentHistoryRoutes");
+const router = express.Router();
 
-const router = Router();
-
-// app.use("/images", express.static(path.join(__dirname, "public/images")));
+router.use(
+  "/images",
+  express.static(path.join(__dirname, "../../public/images"))
+);
 router.use("/departments", departmentRouter);
-// app.use("/employees", employeeRoutes);
-// app.use("/department-history", departmentHistoryRoutes);
+// router.use("/employees", employeeRouter);
+router.use("/department-history", departmentHistoryRouter);
 
-// app.use(errorHandler);
+router.use(errorHandler);
 
 export default router;
