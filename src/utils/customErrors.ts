@@ -30,3 +30,14 @@ export class BadRequestError extends Error {
     Object.setPrototypeOf(this, BadRequestError.prototype);
   }
 }
+
+export class FileServiceError extends Error {
+  public statusCode: number;
+
+  constructor(message: string) {
+    super(message);
+    this.name = "FileServiceError";
+    this.statusCode = 500;
+    Object.setPrototypeOf(this, FileServiceError.prototype);
+  }
+}
