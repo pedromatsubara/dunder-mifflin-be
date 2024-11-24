@@ -1,6 +1,5 @@
 const fs = require("fs/promises");
 const path = require("path");
-const Employee = require("../models/Employee");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -112,7 +111,25 @@ module.exports = {
     ];
 
     for (const employee of employees) {
-      await Employee.findOrCreate({ where: employee });
+      const existingEmployee = await queryInterface.rawSelect(
+        "Employees",
+        {
+          where: {
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+          },
+        },
+        ["id"]
+      );
+      if (!existingEmployee) {
+        await queryInterface.bulkInsert("Employees", [
+          {
+            ...employee,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        ]);
+      }
     }
 
     console.log("Employees have been initialized");

@@ -1,8 +1,6 @@
-const DepartmentHistory = require("../models/DepartmentHistory");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const history = [
+    const departmentHistory = [
       {
         employeeId: 1,
         departmentId: 4,
@@ -70,8 +68,26 @@ module.exports = {
       },
     ];
 
-    for (const event of history) {
-      await DepartmentHistory.findOrCreate({ where: event });
+    for (const history of departmentHistory) {
+      const existingHistory = await queryInterface.rawSelect(
+        "DepartmentHistory",
+        {
+          where: {
+            employeeId: history.employeeId,
+            departmentId: history.departmentId,
+          },
+        },
+        ["id"]
+      );
+      if (!existingHistory) {
+        await queryInterface.bulkInsert("DepartmentHistory", [
+          {
+            ...history,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        ]);
+      }
     }
     console.log("Departments History have been initialized");
   },
