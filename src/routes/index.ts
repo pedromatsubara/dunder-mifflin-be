@@ -9,7 +9,7 @@ import departmentRouter from "./departmentRoutes";
 const router = Router();
 
 // app.use("/images", express.static(path.join(__dirname, "public/images")));
-router.use(departmentRouter);
+router.use("/departments", departmentRouter);
 // app.use("/employees", employeeRoutes);
 // app.use("/department-history", departmentHistoryRoutes);
 
