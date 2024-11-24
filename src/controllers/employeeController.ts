@@ -1,18 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeService";
 import { validateId } from "../utils/validation";
+import { serviceHandler } from "../middlewares/serviceHandler";
 
 export const getAllEmployees = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const employees = await employeeService.getAllEmployees();
-    res.json(employees);
-  } catch (error) {
-    next(error);
-  }
+  await serviceHandler(employeeService.getAllEmployees, res, next);
 };
 
 export const getEmployeeById = async (
@@ -20,13 +16,14 @@ export const getEmployeeById = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const employeeId = validateId(req.params.id);
-    const employee = await employeeService.getEmployeeById(employeeId);
-    res.json(employee);
-  } catch (error) {
-    next(error);
-  }
+  await serviceHandler(
+    () => {
+      const employeeId = validateId(req.params.id);
+      return employeeService.getEmployeeById(employeeId);
+    },
+    res,
+    next
+  );
 };
 
 export const createEmployee = async (
@@ -34,12 +31,12 @@ export const createEmployee = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const employee = await employeeService.createEmployee(req.body, req.file);
-    res.status(201).json(employee);
-  } catch (error) {
-    next(error);
-  }
+  await serviceHandler(
+    () => employeeService.createEmployee(req.body, req.file),
+    res,
+    next,
+    201
+  );
 };
 
 export const updateEmployee = async (
@@ -47,13 +44,14 @@ export const updateEmployee = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const employeeId = validateId(req.params.id);
-    const employee = await employeeService.updateEmployee(employeeId, req.body);
-    res.json(employee);
-  } catch (error) {
-    next(error);
-  }
+  await serviceHandler(
+    () => {
+      const employeeId = validateId(req.params.id);
+      return employeeService.updateEmployee(employeeId, req.body);
+    },
+    res,
+    next
+  );
 };
 
 export const deleteEmployee = async (
@@ -61,11 +59,13 @@ export const deleteEmployee = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const employeeId = validateId(req.params.id);
-    await employeeService.deleteEmployee(employeeId);
-    res.status(204).send();
-  } catch (error) {
-    next(error);
-  }
+  await serviceHandler(
+    () => {
+      const employeeId = validateId(req.params.id);
+      return employeeService.deleteEmployee(employeeId);
+    },
+    res,
+    next,
+    204
+  );
 };

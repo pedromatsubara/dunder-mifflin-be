@@ -1,16 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { getAllDepartments } from "../services/departmentService";
+import { serviceHandler } from "../middlewares/serviceHandler";
 
 export const getDepartments = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const departments = await getAllDepartments();
-    res.json(departments);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+  await serviceHandler(getAllDepartments, res, next);
 };
