@@ -21,7 +21,9 @@ export const saveImage = async (
   const filePath = path.join(uploadsDir, fileName);
   try {
     await createUploadsDirIfNotExist();
-    await sharp(buffer).toFormat("jpeg").toFile(filePath);
+    await sharp(buffer as Buffer)
+      .toFormat("jpeg")
+      .toFile(filePath);
   } catch (error) {
     throw new FileServiceError("Failed to save image");
   }
