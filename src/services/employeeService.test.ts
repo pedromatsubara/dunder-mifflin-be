@@ -93,7 +93,7 @@ describe("Employee Service", () => {
     it("should throw NotFoundError when employee not found", async () => {
       (employeeRepository.findById as jest.Mock).mockResolvedValue(null);
 
-      await expect(employeeService.getEmployeeById(1)).rejects.toThrowError(
+      await expect(employeeService.getEmployeeById(1)).rejects.toThrow(
         new NotFoundError("Employee with ID 1 not found")
       );
     });
