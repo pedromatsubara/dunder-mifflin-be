@@ -61,6 +61,15 @@ Start the server
 ```
 
 
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
+
+
 ## Design Patterns
 
 #### Singleton Pattern:
