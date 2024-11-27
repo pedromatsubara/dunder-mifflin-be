@@ -1,71 +1,27 @@
-import { Request, Response, NextFunction } from "express";
+import { Request } from "express";
 import * as employeeService from "../services/employeeService";
 import { validateId } from "../utils/validation";
-import { serviceHandler } from "../middlewares/serviceHandler";
+import Employee from "../database/models/Employee";
 
-export const getAllEmployees = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  await serviceHandler(employeeService.getAllEmployees, res, next);
+export const getAllEmployees = async (req: Request): Promise<Employee[]> => {
+  return await employeeService.getAllEmployees();
 };
 
-export const getEmployeeById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  await serviceHandler(
-    () => {
-      const employeeId = validateId(req.params.id);
-      return employeeService.getEmployeeById(employeeId);
-    },
-    res,
-    next
-  );
+export const getEmployeeById = async (req: Request): Promise<Employee> => {
+  const employeeId = validateId(req.params.id);
+  return employeeService.getEmployeeById(employeeId);
 };
 
-export const createEmployee = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  await serviceHandler(
-    () => employeeService.createEmployee(req.body, req.file),
-    res,
-    next,
-    201
-  );
+export const createEmployee = async (req: Request): Promise<Employee> => {
+  return employeeService.createEmployee(req.body, req.file);
 };
 
-export const updateEmployee = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  await serviceHandler(
-    () => {
-      const employeeId = validateId(req.params.id);
-      return employeeService.updateEmployee(employeeId, req.body);
-    },
-    res,
-    next
-  );
+export const updateEmployee = async (req: Request): Promise<Employee> => {
+  const employeeId = validateId(req.params.id);
+  return employeeService.updateEmployee(employeeId, req.body);
 };
 
-export const deleteEmployee = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  await serviceHandler(
-    () => {
-      const employeeId = validateId(req.params.id);
-      return employeeService.deleteEmployee(employeeId);
-    },
-    res,
-    next,
-    204
-  );
+export const deleteEmployee = async (req: Request): Promise<void> => {
+  const employeeId = validateId(req.params.id);
+  return employeeService.deleteEmployee(employeeId);
 };

@@ -1,11 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { Request } from "express";
 import { getAllDepartments } from "../services/departmentService";
-import { serviceHandler } from "../middlewares/serviceHandler";
+import Department from "../database/models/Department";
 
-export const getDepartments = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  await serviceHandler(getAllDepartments, res, next);
+export const getDepartments = async (req: Request): Promise<Department[]> => {
+  return getAllDepartments();
 };

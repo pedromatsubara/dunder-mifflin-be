@@ -1,13 +1,11 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
-export const serviceHandler = async <T>(
-  serviceCall: () => Promise<T>,
-  res: Response,
-  next: NextFunction,
+export const serviceHandler = <T>(
+  controller: (req: Request) => Promise<T>,
   status: number = 200
-): Promise<void> => {
+) => async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result: T = await serviceCall();
+    const result: T = await controller(req);
     res.status(status).json(result);
   } catch (error) {
     next(error);

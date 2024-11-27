@@ -1,19 +1,16 @@
 import { Router } from "express";
 import multer from "multer";
-import * as employeeController from "../controllers/employeeController";
+import * as controller from "../controllers/employeeController";
+import { serviceHandler } from "../middlewares/serviceHandler";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const employeeRouter = Router();
+const router = Router();
 
-employeeRouter.get("/", employeeController.getAllEmployees);
-employeeRouter.get("/:id", employeeController.getEmployeeById);
-employeeRouter.post(
-  "/",
-  upload.single("image"),
-  employeeController.createEmployee
-);
-employeeRouter.put("/:id", employeeController.updateEmployee);
-employeeRouter.delete("/:id", employeeController.deleteEmployee);
+router.get("/", serviceHandler(controller.getAllEmployees));
+router.get("/:id", serviceHandler(controller.getEmployeeById));
+router.post("/", upload.single("image"), serviceHandler(controller.createEmployee, 201));
+router.put("/:id", serviceHandler(controller.updateEmployee));
+router.delete("/:id", serviceHandler(controller.deleteEmployee, 204));
 
-export default employeeRouter;
+export default router;

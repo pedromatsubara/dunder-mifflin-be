@@ -1,11 +1,9 @@
 import { Router } from "express";
-import * as departmentHistoryController from "../controllers/departmentHistoryController";
+import * as controller from "../controllers/departmentHistoryController";
+import { serviceHandler } from "../middlewares/serviceHandler";
 
-const departmentHistoryRouter = Router();
+const router = Router();
 
-departmentHistoryRouter.get(
-  "/:employeeId",
-  departmentHistoryController.getDepartmentHistoryByEmployeeId
-);
+router.get("/:employeeId", serviceHandler(controller.getDepartmentHistoryByEmployeeId));
 
-export default departmentHistoryRouter;
+export default router;

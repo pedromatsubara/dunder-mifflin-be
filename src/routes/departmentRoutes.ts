@@ -1,8 +1,9 @@
 import { Router } from "express";
-import * as departmentController from "../controllers/departmentController";
+import * as controller from "../controllers/departmentController";
+import { serviceHandler } from "../middlewares/serviceHandler";
 
-const departmentRouter = Router();
+const router = Router();
 
-departmentRouter.get("/", departmentController.getDepartments);
+router.get("/", serviceHandler(controller.getDepartments));
 
-export default departmentRouter;
+export default router;
